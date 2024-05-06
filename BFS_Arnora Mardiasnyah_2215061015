@@ -1,0 +1,41 @@
+peta = { 
+        'A': set (['B', 'H']),
+        'B': set (['A','C','H']),
+        'C': set (['B', 'D','E']),
+        'D': set (['C','E','F','G','H']),
+        'E': set (['C','H']), 
+        'F': set (['D','G']),
+        'G': set (['F','D','H']),
+        'H': set (['B','H']),
+}
+
+def bfs_lintasan_terpendek(peta, mulai, tujuan):
+        explored = []
+        queue =  [[ mulai ]]
+
+        if mulai == tujuan :
+                return "Awal adalah Tujuan"
+        
+        while queue :
+                jalur = queue.pop(0)
+                node  = jalur [-1]
+
+                if node not in explored :
+                        neighbours = peta[node]
+
+                        for neighbours in neighbours :
+                                jalur_baru = list(jalur)
+                                jalur_baru.append(neighbours)
+                                queue.append(jalur_baru)
+
+                                if neighbours == tujuan :
+                                        return jalur_baru
+                        
+                        explored.append(node)
+
+        return "Mohon maaf node yang kalian pilih tidak ada"
+
+mulai = input("Masukan awal : ")
+tujuan = input ("Masukan akhir : ")
+
+print(bfs_lintasan_terpendek (peta, mulai, tujuan))
